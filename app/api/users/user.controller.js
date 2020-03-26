@@ -1,59 +1,76 @@
+const models = require('./../../models/rawdata')
+
 exports.list = function(req, res) {
-    return res.json(users)
+    models.GpsDatas.findAll()
+    .then(GpsData => res.json(GpsData))
 }
 
-exports.show = function(req, res) {
+exports.read = function(req, res) {
     var author = req.params.author
-    var user = users.filter(user => user.name === author)
-    if(!user[0]) {
-        return res.status(404).json({err: 'Unknown user'})
-    }
-    else {
-        return res.json(user)
-    }
+    console.log(author)
+    models.GpsDatas.findAll({
+        where: {
+            author: author
+        }
+    }).then(GpsData => {
+        if(!GpsData){
+            return res.status(404).json({
+                success: "No",
+                err: 'No User'
+            })
+        }
+        return res.json(GpsData)
+    })
 }
 
 exports.create = function(req, res) {
-    const name = req.body.name || '';
-    if(!name.length){
-        return res.status(400).json({err: 'Incorct name'})
+    var obj = req.body
+    for(i = 0; i < obj.length; i++){
+        tmp = function(i){       
+            models.GpsDatas.findOne({
+                where: {
+                    author: obj[i].author,
+                    latitude: obj[i].latitude,
+                    longitude: obj[i].longitude
+                }
+            }).then(function(GpsData){
+                if(!GpsData){
+                    models.GpsDatas.create({
+                        author: obj[i].author,
+                        latitude: obj[i].latitude,
+                        longitude: obj[i].longitude,
+                        maxDistance: obj[i].maxDistance,
+                        meanDistance: obj[i].meanDistance,
+                        timeRatio: obj[i].timeRatio,
+                        hourSpent: obj[i].hourSpent
+                    }) 
+                }
+            })
+        }
+        tmp(i)
     }
-    const id = users.reduce((maxId, user) => {
-        return user.id > maxId ? user.id : maxId
-    }, 0) + 1;
-
-    const newUser = {
-        id: id,
-        name: name
-    };
-
-    users.push(newUser);
-    return res.status(201).json(newUser);
+    res.status(201).json({success: "Yes"})
 }
 
 exports.delete = function(req, res) {
     var author = req.params.author
-    var userIdx = users.findIndex( user => user.name === author)
-    if(userIdx === -1) {
-        return res.status(404).json({err: 'Unknown user'})
-    }
-    else {
-        users.splice(userIdx, 1)
-        res.status(204).send()
-    }
+    models.GpsDatas.findOne({
+        where: {
+            author: author
+        }
+    }).then(GpsData => {
+        if(!GpsData){
+            return res.status(404).json({
+                success: 'No',
+                err: 'Not Found'
+            })
+        }else {
+            models.GpsDatas.destroy({
+                where: {
+                    author: author
+                }
+            }).then(() => res.status(204).json({success: "Yes"})) // responce not work
+        }
+    })
 }
 
-let users = [
-    {
-      id: 1,
-      name: 'kim'
-    },
-    {
-      id: 2,
-      name: 'jonh'
-    },
-    {
-      id: 3,
-      name: 'david'
-    }
-  ]
