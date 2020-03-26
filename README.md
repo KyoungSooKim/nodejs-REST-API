@@ -23,4 +23,13 @@
   }
 ]
 ```
- 
+## Technologies Used
+* JavaScript
+* NodeJS
+* Mysql
+* Used Modules
+  - express (framework)
+  - sequelize (ORM)
+  - mysql
+  - mysql2
+  - body-parser
