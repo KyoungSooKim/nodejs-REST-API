@@ -1,6 +1,7 @@
 const models = require('./../../models/rawdata')
 
 exports.list = function(req, res) {
+    console.log("request come in")
     models.GpsDatas.findAll()
     .then(GpsData => res.json(GpsData))
 }
@@ -74,3 +75,6 @@ exports.delete = function(req, res) {
     })
 }
 
+exports.test = function(req, res) {
+    console.log(req.body)
+}

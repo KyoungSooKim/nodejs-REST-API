@@ -15,3 +15,5 @@ router.get('/:author', controller.read);
 router.delete('/:author', controller.delete);
 // create row
 router.post('/', controller.create);
+
+router.post('/test', controller.test)
