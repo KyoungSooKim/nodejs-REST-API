@@ -43,7 +43,8 @@ exports.create = function(req, res) {
                         maxDistance: obj[i].maxDistance,
                         meanDistance: obj[i].meanDistance,
                         timeRatio: obj[i].timeRatio,
-                        hourSpent: obj[i].hourSpent
+                        hourSpent: obj[i].hourSpent,
+                        count: obj[i].count
                     }) 
                 }
             })

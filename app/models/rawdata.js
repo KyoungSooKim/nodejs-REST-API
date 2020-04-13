@@ -30,6 +30,9 @@ const GpsDatas = sequelize.define('gpsDatas',{
     },
     hourSpent: {
         type: Sequelize.DOUBLE(8,6)
+    },
+    count: {
+        type: Sequelize.INTEGER
     }
 },{
     timestamps: false
