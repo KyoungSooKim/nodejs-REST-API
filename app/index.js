@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/gps', require('./api/gps/index'))
-app.use('/users', require('./api/users/index'))
+app.use('/user', require('./api/user/index'))
 
 app.listen(port, () => {
     console.log('API sever work!')
@@ -18,11 +18,9 @@ app.listen(port, () => {
         console.log('Databases sync')
     })
 
-    const ORM2 = require('./models/users')
+    const ORM2 = require('./models/user')
     ORM2.sequelize.sync({force: false})
     .then(() => {
         console.log('user table sync')
     })
 })
-
-module.exports = app;

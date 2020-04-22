@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 module.exports = router;
 // show list
-router.get('/', controller.login);
+router.post('/auth', controller.auth);
 // // show author
 // router.get('/:author', controller.read);
 // // delete author

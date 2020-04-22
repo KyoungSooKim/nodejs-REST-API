@@ -12,27 +12,27 @@ const GpsDatas = sequelize.define('gpsDatas',{
         primaryKey: true
     },
     latitude: {
-        type: Sequelize.DOUBLE(18,14),
+        type: Sequelize.STRING,
         primaryKey: true
     },
     longitude: {
-        type: Sequelize.DOUBLE(18,14),
+        type: Sequelize.STRING,
         primaryKey: true
     },
     maxDistance: {
-        type: Sequelize.DOUBLE(8,6)
+        type: Sequelize.STRING
     },
     meanDistance: {
-        type: Sequelize.DOUBLE(8,6)
+        type: Sequelize.STRING
     },
     timeRatio: {
-        type: Sequelize.DOUBLE(8,6)
+        type: Sequelize.STRING
     },
     hourSpent: {
-        type: Sequelize.DOUBLE(8,6)
+        type: Sequelize.STRING
     },
     count: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
     }
 },{
     timestamps: false

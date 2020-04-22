@@ -1,30 +1,32 @@
-const models = require('./../../models/users')
-const secretObj = require('./../../config/jwt')
+const models = require('../../models/user')
+const secretObj = require('../../config/jwt')
 const jwt = require('jsonwebtoken')
+
 exports.create = function(req, res) {
     var obj = req.body
     for(i = 0; i < obj.length; i++){
-        tmp = function(i){       
+        tmp = function(i){     
             models.User.findOne({
                 where: {
-                    name: obj[i].name
+                    user: obj[i].user
                 }
-            }).then(function(User){
-                if(!User){
+            }).then(function(resUsers){
+                if(!resUsers){
                     models.User.create({
-                        name: obj[i].name,
+                        user: obj[i].user,
                         password: obj[i].password,
                     }) 
                 }
             })
         }
+        tmp(i)
     }
     res.status(201).json({success: "Yes"})
 }
 
-exports.login = function(req, res) {
+exports.auth = function(req, res) {
     let token = jwt.sign({
-        name: req.query.name
+        user: req.query.user
     },
     secretObj.secret ,
     {
@@ -33,10 +35,10 @@ exports.login = function(req, res) {
     
     models.User.findOne({
         where: {
-            name: req.query.name,
+            user: req.query.user,
         }
-    }).then(function(User){
-        if(User.password == req.query.password){
+    }).then(function(resUsers){
+        if(resUsers.password == req.query.password){
             res.json({
                 token: token
             })

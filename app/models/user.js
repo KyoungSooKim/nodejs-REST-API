@@ -1,4 +1,4 @@
-const key = require('./../config/dbConfig')
+const key = require('../config/dbConfig')
 const Sequelize = require('sequelize')
 
 const sequelize = new Sequelize(key.database, key.username, key.password, {
@@ -7,7 +7,7 @@ const sequelize = new Sequelize(key.database, key.username, key.password, {
 })
 
 const User = sequelize.define('user',{
-    name: {
+    user: {
         type: Sequelize.STRING,
         primaryKey: true
     },
