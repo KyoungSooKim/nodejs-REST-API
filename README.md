@@ -1,14 +1,14 @@
 # REST API implemented with nodeJS
 
-nodejs로 auth 부분을 제외하고 간단히 rest api 만들었습니다. 
 
 ###  Purpose of sending and receiving gps data through REST API
 
 * CRUD Operation
-  * Create - HTTP Verb : POST - Route : /users
-  * Read - HTTP Verb : GET - Route : /users/:author
-  * Delete - HTTP Verb : DELETE - Route : /users/:author
-  * update - unimplemented
+  * show list - HTTP Verb : GET - Route : /gps
+  * show author - HTTP Verb : GET - Route : /gps/:author
+  * delete author - HTTP Verb : DELETE - Route : /gps/:author
+  * create row - HTTP Verb : POST - Route : /gps/:author
+  * auth verify - HTTP Verb : POST - Route : /user/auth
   
 ## Required json Format
 ```json
@@ -31,6 +31,7 @@ nodejs로 auth 부분을 제외하고 간단히 rest api 만들었습니다.
 * Used Modules
   - express 
   - sequelize
+  - jsonwebtoken
   - mysql
   - mysql2
   - body-parser
